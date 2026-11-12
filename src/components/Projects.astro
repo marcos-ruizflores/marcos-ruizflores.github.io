@@ -18,7 +18,7 @@ const t = content[Astro.props.lang].projects;
       t.items.map((p, i) => (
         <article class="grid items-center gap-10 md:grid-cols-2">
           <div class:list={[i % 2 === 1 && 'md:order-2']}>
-            <ProjectVisual kind={p.visual} />
+            <ProjectVisual project={p} />
           </div>
           <div>
             <p class="font-mono text-xs text-accent">{p.label}</p>

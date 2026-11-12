@@ -7,6 +7,10 @@ export interface Project {
   tech: string[];
   links: { label: string; href: string }[];
   visual: 'torii' | 'cripto' | 'thesis';
+  // Alt text for the two screenshots: the main one and the smaller detail on top
+  alt?: [string, string];
+  // Headline numbers, used instead of screenshots for the thesis
+  stats?: { value: string; label: string }[];
 }
 
 export interface Job {
@@ -117,6 +121,10 @@ const en = {
         tech: ['Java 21', 'Spring Boot', 'Spring Security', 'PostgreSQL', 'Flyway', 'React', 'TypeScript'],
         links: toriiLinks('Live site', 'Source'),
         visual: 'torii',
+        alt: [
+          'Torii search form and departures board for Barcelona to Tokyo, with price verdicts',
+          'Torii route map and 30-day price history chart',
+        ],
       },
       {
         label: 'Personal project',
@@ -126,6 +134,10 @@ const en = {
         tech: ['Python', 'FastAPI', 'MongoDB', 'React', 'Vite'],
         links: [{ label: 'Source', href: 'https://github.com/marcos-ruizflores/criptoBalance' }],
         visual: 'cripto',
+        alt: [
+          'CriptoBalance dashboard with a new trade form and profit and loss per coin',
+          'CriptoBalance portfolio allocation chart',
+        ],
       },
       {
         label: "Bachelor's thesis",
@@ -135,6 +147,11 @@ const en = {
         tech: ['Python', 'Qiskit', 'IBM Quantum', 'Cryptography'],
         links: [],
         visual: 'thesis',
+        stats: [
+          { value: '40.5%', label: 'Grover success rate on real IBM hardware, against 6.25% by pure chance' },
+          { value: '24%', label: 'Shor (factoring 15) once real noise kicks in, down from 76% in an ideal simulator' },
+          { value: '~3,000×', label: 'faster key generation with ML-KEM than with RSA-2048, for keys about 4× larger' },
+        ],
       },
     ] satisfies Project[],
   },
@@ -261,6 +278,10 @@ const es: Content = {
         tech: ['Java 21', 'Spring Boot', 'Spring Security', 'PostgreSQL', 'Flyway', 'React', 'TypeScript'],
         links: toriiLinks('Ver web', 'Código'),
         visual: 'torii',
+        alt: [
+          'Formulario de búsqueda de Torii y panel de salidas de Barcelona a Tokio, con el veredicto de precio',
+          'Mapa de la ruta y gráfico del histórico de precios de 30 días en Torii',
+        ],
       },
       {
         label: 'Proyecto personal',
@@ -270,6 +291,10 @@ const es: Content = {
         tech: ['Python', 'FastAPI', 'MongoDB', 'React', 'Vite'],
         links: [{ label: 'Código', href: 'https://github.com/marcos-ruizflores/criptoBalance' }],
         visual: 'cripto',
+        alt: [
+          'Panel de CriptoBalance con el formulario de nueva operación y las ganancias y pérdidas de cada moneda',
+          'Gráfico de distribución de la cartera en CriptoBalance',
+        ],
       },
       {
         label: 'Trabajo de fin de grado',
@@ -279,6 +304,11 @@ const es: Content = {
         tech: ['Python', 'Qiskit', 'IBM Quantum', 'Criptografía'],
         links: [],
         visual: 'thesis',
+        stats: [
+          { value: '40,5 %', label: 'de acierto de Grover en hardware real de IBM, frente al 6,25 % por puro azar' },
+          { value: '24 %', label: 'de acierto de Shor (factorizar 15) con ruido real, frente al 76 % en un simulador ideal' },
+          { value: '~3.000×', label: 'más rápido generar claves con ML-KEM que con RSA-2048, a cambio de claves unas 4 veces mayores' },
+        ],
       },
     ],
   },
