@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource/jetbrains-mono/500.css";
+
+/* Theme is driven by data-theme on <html>, set before first paint in Base.astro */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --bg: #f8f8fa;
+  --surface: #ffffff;
+  --surface-2: #f1f1f5;
+  --border: #e3e3ea;
+  --text: #16151b;
+  --muted: #5c5a68;
+  --subtle: #8a8896;
+  --accent: #4b57d6;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0c11;
+  --surface: #13131a;
+  --surface-2: #1a1a23;
+  --border: #25252f;
+  --text: #ecebf3;
+  --muted: #a09eae;
+  --subtle: #6d6b7a;
+  --accent: #8c96ff;
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.pulse-dot {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track,
+  .pulse-dot {
+    animation: none;
+  }
+}

@@ -1,0 +1,51 @@
+---
+import { content, type Lang } from '../i18n/content';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = content[Astro.props.lang].about;
+---
+
+<section id="about" class="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+  <SectionHeading tag={t.tag} title={t.title} />
+
+  <div class="grid gap-14 md:grid-cols-[1.2fr_1fr]">
+    <div>
+      <p class="text-xl font-semibold leading-snug text-pretty">{t.lead}</p>
+      <p class="mt-5 leading-relaxed text-muted text-pretty">{t.body}</p>
+
+      <dl class="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-8">
+        {
+          t.facts.map((fact) => (
+            <div>
+              <dt class="sr-only">{fact.label}</dt>
+              <dd class="text-2xl font-bold tracking-tight">{fact.value}</dd>
+              <dd class="mt-1 text-xs leading-snug text-subtle">{fact.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <ol class="relative ml-2 border-l border-line">
+      {
+        t.timeline.map((item) => (
+          <li class="relative pb-9 pl-7 last:pb-0">
+            <span
+              class:list={[
+                'absolute -left-[5px] top-1.5 size-[9px] rounded-full border',
+                item.current ? 'border-accent bg-accent' : 'border-subtle bg-bg',
+              ]}
+            />
+            <p class:list={['font-mono text-xs', item.current ? 'text-accent' : 'text-subtle']}>{item.period}</p>
+            <p class="mt-1 font-semibold">{item.title}</p>
+            <p class="mt-0.5 text-sm text-muted">{item.detail}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

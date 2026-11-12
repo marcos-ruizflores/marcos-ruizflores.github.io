@@ -1,0 +1,17 @@
+---
+import { content, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = content[Astro.props.lang].footer;
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 font-mono text-xs text-subtle sm:flex-row sm:px-6">
+    <p>© {year} {t.rights}</p>
+    <p>{t.built}</p>
+  </div>
+</footer>

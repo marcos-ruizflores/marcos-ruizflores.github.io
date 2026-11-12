@@ -1,0 +1,53 @@
+---
+import { content, type Lang } from '../i18n/content';
+import SectionHeading from './SectionHeading.astro';
+import ProjectVisual from './ProjectVisual.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = content[Astro.props.lang].projects;
+---
+
+<section id="projects" class="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+  <SectionHeading tag={t.tag} title={t.title} />
+
+  <div class="space-y-24">
+    {
+      t.items.map((p, i) => (
+        <article class="grid items-center gap-10 md:grid-cols-2">
+          <div class:list={[i % 2 === 1 && 'md:order-2']}>
+            <ProjectVisual kind={p.visual} />
+          </div>
+          <div>
+            <p class="font-mono text-xs text-accent">{p.label}</p>
+            <h3 class="mt-2 text-2xl font-bold tracking-tight text-balance">{p.title}</h3>
+            <p class="mt-4 leading-relaxed text-muted text-pretty">{p.description}</p>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {p.tech.map((tech) => (
+                <li class="rounded-md border border-line bg-surface px-2.5 py-1 font-mono text-[11px] text-muted">{tech}</li>
+              ))}
+            </ul>
+            {p.links.length > 0 && (
+              <div class="mt-6 flex flex-wrap gap-5">
+                {p.links.map((link) => (
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+                    {link.label}
+                    <svg class="size-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M5 12h14m0 0-6-6m6 6-6 6" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

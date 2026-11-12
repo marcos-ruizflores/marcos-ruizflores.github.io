@@ -1,0 +1,46 @@
+---
+import type { Project } from '../i18n/content';
+
+interface Props {
+  kind: Project['visual'];
+}
+
+const { kind } = Astro.props;
+
+// Small architecture sketches, one per project
+const diagrams: Record<Project['visual'], { top: string[]; bottom: string[] }> = {
+  torii: {
+    top: ['React UI', 'Spring Boot API'],
+    bottom: ['Flight providers · failover', 'Caffeine cache', 'PostgreSQL'],
+  },
+  cripto: {
+    top: ['React UI', 'FastAPI'],
+    bottom: ['Binance prices', 'MongoDB', 'SMTP alerts'],
+  },
+  thesis: {
+    top: ['Qiskit', 'IBM Quantum · 156 qubits'],
+    bottom: ['RSA-2048', 'ML-KEM', 'ML-DSA', 'SLH-DSA'],
+  },
+};
+
+const d = diagrams[kind];
+---
+
+<div
+  class="relative flex aspect-[16/10] flex-col items-center justify-center gap-6 overflow-hidden rounded-2xl border border-line bg-surface p-6 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:18px_18px]"
+  aria-hidden="true">
+  <div class="flex items-center gap-3">
+    {
+      d.top.map((node, i) => (
+        <>
+          {i > 0 && <span class="h-px w-8 bg-accent" />}
+          <span class="rounded-lg border border-line bg-bg px-3 py-2 font-mono text-[11px] text-ink shadow-sm">{node}</span>
+        </>
+      ))
+    }
+  </div>
+  <span class="h-6 w-px bg-accent"></span>
+  <div class="flex flex-wrap justify-center gap-2">
+    {d.bottom.map((node) => <span class="rounded-lg border border-line bg-bg px-3 py-2 font-mono text-[11px] text-muted">{node}</span>)}
+  </div>
+</div>

@@ -1,0 +1,56 @@
+---
+import { content, type Lang } from '../i18n/content';
+import { links } from '../data/profile';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = content[Astro.props.lang].hero;
+---
+
+<section class="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-12 px-4 pb-20 pt-14 sm:px-6 md:grid-cols-[minmax(0,1fr)_auto] md:pt-24">
+  <div>
+    <span class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
+      <span class="pulse-dot size-2 rounded-full bg-emerald-500"></span>
+      {t.badge}
+    </span>
+
+    <h1 class="mt-6 text-6xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
+      <span class="block">Marcos</span>
+      <span class="block text-accent">Ruiz-Flores</span>
+    </h1>
+
+    <p class="mt-6 font-mono text-sm text-muted">
+      {t.role}<span class="mx-2 text-subtle">·</span>{t.location}
+    </p>
+
+    <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted text-pretty">{t.intro}</p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a
+        href="#projects"
+        class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-bg transition-opacity hover:opacity-90">
+        {t.primary}
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 5v14m0 0-6-6m6 6 6-6"></path>
+        </svg>
+      </a>
+      <a
+        href={links.cv}
+        download
+        class="inline-flex items-center gap-2 rounded-lg border border-line px-5 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+        {t.cv}
+      </a>
+    </div>
+  </div>
+
+  {/* TODO: replace with the real photo (public/photo.jpg) */}
+  <div
+    class="relative mx-auto grid size-56 place-items-center overflow-hidden rounded-3xl border border-line bg-surface sm:size-72"
+    role="img"
+    aria-label={t.photoAlt}>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,var(--accent-soft),transparent_70%)]"></div>
+    <span class="relative text-6xl font-extrabold tracking-tight text-subtle">MR</span>
+  </div>
+</section>
