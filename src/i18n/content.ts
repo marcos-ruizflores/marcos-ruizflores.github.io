@@ -132,7 +132,10 @@ const en = {
         description:
           'Log your buys and sells and see what each position is worth right now, with profit and loss calculated from live Binance prices. It has price and profit alerts by email, history charts, CSV import and export, and a small command-line version.',
         tech: ['Python', 'FastAPI', 'MongoDB', 'React', 'Vite'],
-        links: [{ label: 'Source', href: 'https://github.com/marcos-ruizflores/criptoBalance' }],
+        links: [
+          { label: 'Live demo', href: 'https://marcos-ruizflores.github.io/criptoBalance/' },
+          { label: 'Source', href: 'https://github.com/marcos-ruizflores/criptoBalance' },
+        ],
         visual: 'cripto',
         alt: [
           'CriptoBalance overview with portfolio value, positions with profit and loss per coin, and allocation',
@@ -293,7 +296,10 @@ const es: Content = {
         description:
           'Registras tus compras y ventas y ves cuánto vale cada posición en este momento, con las ganancias y pérdidas calculadas con precios en directo de Binance. Tiene alertas de precio y de beneficio por email, gráficos de histórico, importación y exportación en CSV y una pequeña versión de terminal.',
         tech: ['Python', 'FastAPI', 'MongoDB', 'React', 'Vite'],
-        links: [{ label: 'Código', href: 'https://github.com/marcos-ruizflores/criptoBalance' }],
+        links: [
+          { label: 'Ver demo', href: 'https://marcos-ruizflores.github.io/criptoBalance/' },
+          { label: 'Código', href: 'https://github.com/marcos-ruizflores/criptoBalance' },
+        ],
         visual: 'cripto',
         alt: [
           'Resumen de CriptoBalance con el valor de la cartera, las posiciones con la ganancia de cada moneda y la distribución',
