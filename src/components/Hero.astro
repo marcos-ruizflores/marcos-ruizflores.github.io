@@ -1,6 +1,7 @@
 ---
-import { content, type Lang } from '../i18n/content';
 import { Image } from 'astro:assets';
+import { siGithub } from 'simple-icons';
+import { content, type Lang } from '../i18n/content';
 import { links } from '../data/profile';
 import photo from '../assets/photo.jpg';
 
@@ -9,57 +10,156 @@ interface Props {
 }
 
 const t = content[Astro.props.lang].hero;
+// The terminal box is sized for the longest phrase so it doesn't jump while typing
+const longest = Math.max(...t.typed.map((p) => p.length));
+
+const socials = [
+  { label: 'GitHub', href: links.github, path: siGithub.path, fill: true },
+  {
+    label: 'LinkedIn',
+    href: links.linkedin,
+    path: 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.12V21h-4v-4.98c0-1.19-.02-2.72-1.66-2.72-1.66 0-1.91 1.3-1.91 2.63V21h-4V9.75Z',
+    fill: true,
+  },
+  { label: 'Email', href: `mailto:${links.email}`, path: 'M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Zm0 0 9 6 9-6', fill: false },
+];
 ---
 
-<section class="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-12 px-4 pb-20 pt-14 sm:px-6 md:grid-cols-[minmax(0,1fr)_auto] md:pt-24">
-  <div class="enter">
-    <span class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
-      <span class="pulse-dot size-2 rounded-full bg-emerald-500"></span>
-      {t.badge}
-    </span>
-
-    <h1 class="mt-6 text-6xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
-      <span class="block">Marcos</span>
-      <span class="block text-accent">Ruiz-Flores</span>
-    </h1>
-
-    <p class="mt-6 font-mono text-sm text-muted">
-      {t.role}<span class="mx-2 text-subtle">·</span>{t.location}
-    </p>
-
-    <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted text-pretty">{t.intro}</p>
-
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a
-        href="#projects"
-        class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-bg transition-opacity hover:opacity-90">
-        {t.primary}
-        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M12 5v14m0 0-6-6m6 6 6-6"></path>
-        </svg>
-      </a>
-      <a
-        href={links.cv}
-        download
-        class="inline-flex items-center gap-2 rounded-lg border border-line px-5 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
-        {t.cv}
-      </a>
-    </div>
+<section class="relative">
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-[640px] bg-[radial-gradient(ellipse_at_20%_30%,var(--accent-soft),transparent_55%)]"
+    aria-hidden="true">
   </div>
 
-  <div class="enter relative mx-auto size-56 sm:size-72" style="--delay: 150ms">
-    <div class="absolute -inset-3 rounded-full bg-[radial-gradient(circle,var(--accent-soft),transparent_70%)]" aria-hidden="true"></div>
-    {/* The source photo is already cut into a circle on grey, so scale it a touch to hide the corners */}
-    <div class="relative size-full overflow-hidden rounded-full border border-line">
-      <Image
-        src={photo}
-        alt={t.photoAlt}
-        widths={[224, 288, 448, 522]}
-        sizes="(min-width: 640px) 288px, 224px"
-        loading="eager"
-        fetchpriority="high"
-        class="size-full scale-[1.04] object-cover"
-      />
+  <div
+    class="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-14 px-4 pb-20 pt-14 sm:px-6 md:grid-cols-[minmax(0,1fr)_auto] md:pt-24">
+    <div class="enter">
+      <span class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
+        <span class="pulse-dot size-2 rounded-full bg-emerald-500"></span>
+        {t.badge}
+      </span>
+
+      <h1 class="mt-6 text-6xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
+        <span class="block">Marcos</span>
+        <span class="block text-accent">Ruiz-Flores</span>
+      </h1>
+
+      <p class="mt-6 font-mono text-sm text-muted">
+        {t.role}<span class="mx-2 text-subtle">·</span>{t.location}
+      </p>
+
+      {/* Terminal line that types and deletes a few phrases in a loop */}
+      <div
+        class="mt-5 inline-flex max-w-full items-center gap-2 rounded-lg border border-line bg-surface px-4 py-2.5 font-mono text-sm shadow-sm"
+        style={`width: ${longest + 7}ch`}>
+        <span class="text-accent" aria-hidden="true">&gt;</span>
+        <span class="sr-only">{t.typed.join('. ')}</span>
+        <span class="truncate" data-typed={JSON.stringify(t.typed)} aria-hidden="true">{t.typed[0]}</span>
+        <span class="caret h-4 w-2 shrink-0 bg-accent" aria-hidden="true"></span>
+      </div>
+
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted text-pretty">{t.intro}</p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="#projects"
+          class="group inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-bg shadow-lg shadow-accent/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent/40">
+          {t.primary}
+          <svg class="size-4 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 5v14m0 0-6-6m6 6 6-6"></path>
+          </svg>
+        </a>
+        <a
+          href={links.cv}
+          download
+          class="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-5 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"></path>
+          </svg>
+          {t.cv}
+        </a>
+      </div>
+
+      <ul class="mt-6 flex gap-2">
+        {
+          socials.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                target={s.href.startsWith('http') ? '_blank' : undefined}
+                rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={s.label}
+                class="grid size-10 place-items-center rounded-lg border border-line bg-surface text-muted transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent">
+                <svg
+                  class="size-4"
+                  viewBox="0 0 24 24"
+                  fill={s.fill ? 'currentColor' : 'none'}
+                  stroke={s.fill ? undefined : 'currentColor'}
+                  stroke-width={s.fill ? undefined : 2}
+                  aria-hidden="true">
+                  <path d={s.path} />
+                </svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="enter relative mx-auto size-64 sm:size-80" style="--delay: 150ms">
+      {/* Dotted accent disc sitting behind and slightly offset from the photo */}
+      <div
+        class="absolute inset-0 translate-x-4 translate-y-4 rounded-full bg-accent/80 [background-image:radial-gradient(rgb(255_255_255/0.3)_1px,transparent_1px)] [background-size:12px_12px]"
+        aria-hidden="true">
+      </div>
+      {/* The source photo is already cut into a circle on grey, so scale it a touch to hide the corners */}
+      <div class="relative size-full overflow-hidden rounded-full border border-line bg-white">
+        <Image
+          src={photo}
+          alt={t.photoAlt}
+          widths={[256, 320, 522]}
+          sizes="(min-width: 640px) 320px, 256px"
+          loading="eager"
+          fetchpriority="high"
+          class="size-full scale-[1.04] object-cover"
+        />
+      </div>
+      <div class="float absolute -bottom-2 -left-4 rounded-xl border border-line bg-surface/90 px-4 py-2.5 shadow-xl backdrop-blur sm:-left-8">
+        <p class="text-xl font-extrabold leading-none tracking-tight">{t.stat.value}</p>
+        <p class="mt-1 text-[11px] text-subtle">{t.stat.label}</p>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-typed]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (el && !reduce) {
+    const phrases: string[] = JSON.parse(el.dataset.typed ?? '[]');
+    let phrase = 0;
+    let chars = phrases[0]?.length ?? 0;
+    let deleting = true;
+
+    // Starts by deleting the first phrase, which is already on screen for no-JS visitors
+    const tick = () => {
+      const text = phrases[phrase];
+      chars += deleting ? -1 : 1;
+      el.textContent = text.slice(0, chars);
+
+      let delay = deleting ? 35 : 70;
+      if (!deleting && chars === text.length) {
+        deleting = true;
+        delay = 2200;
+      } else if (deleting && chars === 0) {
+        deleting = false;
+        phrase = (phrase + 1) % phrases.length;
+        delay = 350;
+      }
+      setTimeout(tick, delay);
+    };
+
+    setTimeout(tick, 2600);
+  }
+</script>

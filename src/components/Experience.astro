@@ -1,6 +1,7 @@
 ---
 import { content, type Lang } from '../i18n/content';
 import SectionHeading from './SectionHeading.astro';
+import TechChip from './TechChip.astro';
 
 interface Props {
   lang: Lang;
@@ -60,7 +61,7 @@ const t = content[Astro.props.lang].experience;
             </ul>
             <ul class="mt-7 flex flex-wrap gap-2 border-t border-line pt-6">
               {job.tech.map((tech) => (
-                <li class="rounded-md border border-line px-2.5 py-1 font-mono text-[11px] text-muted">{tech}</li>
+                <TechChip name={tech} />
               ))}
             </ul>
           </article>

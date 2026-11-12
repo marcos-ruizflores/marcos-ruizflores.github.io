@@ -1,6 +1,7 @@
 ---
 import { content, type Lang } from '../i18n/content';
 import SectionHeading from './SectionHeading.astro';
+import TechChip from './TechChip.astro';
 
 interface Props {
   lang: Lang;
@@ -10,22 +11,30 @@ const t = content[Astro.props.lang].skills;
 ---
 
 <section id="skills" class="border-y border-line bg-surface/40 py-24">
-  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6">
     <SectionHeading tag={t.tag} title={t.title} />
 
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {/* Rows stacked like layers, joined by a thin line on the left */}
+    <ol class="relative space-y-3 before:absolute before:bottom-6 before:left-[2.5rem] sm:before:left-[2.75rem] before:top-6 before:w-px before:bg-line">
       {
         t.groups.map((group) => (
-          <div class="rounded-2xl border border-line bg-surface p-6" data-reveal>
-            <h3 class="font-mono text-xs uppercase tracking-wider text-accent">{group.name}</h3>
-            <ul class="mt-4 flex flex-wrap gap-2">
+          <li
+            class="skill-row group relative grid gap-4 rounded-2xl border border-line bg-surface p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10 sm:grid-cols-[200px_minmax(0,1fr)] sm:items-center sm:p-5"
+            data-reveal>
+            <div class="flex items-center gap-3">
+              <span class="relative grid h-8 w-12 shrink-0 place-items-center rounded-lg border border-line bg-surface-2 font-mono text-[10px] font-medium text-accent transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-bg">
+                {group.code}
+              </span>
+              <h3 class="font-semibold">{group.name}</h3>
+            </div>
+            <ul class="flex flex-wrap gap-2">
               {group.items.map((item) => (
-                <li class="rounded-md bg-surface-2 px-2.5 py-1 text-sm text-muted">{item}</li>
+                <TechChip name={item} />
               ))}
             </ul>
-          </div>
+          </li>
         ))
       }
-    </div>
+    </ol>
   </div>
 </section>

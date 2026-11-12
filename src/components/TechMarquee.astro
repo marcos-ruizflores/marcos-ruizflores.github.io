@@ -1,5 +1,6 @@
 ---
 import { stack } from '../data/profile';
+import { iconFor } from '../data/icons';
 
 // The list is rendered twice so the loop has no visible seam
 const loop = [...stack, ...stack];
@@ -8,14 +9,21 @@ const loop = [...stack, ...stack];
 <div class="marquee overflow-hidden border-y border-line bg-surface py-4 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
   <ul class="marquee-track flex w-max gap-10" aria-label="Tech stack">
     {
-      loop.map((item, i) => (
-        <li class="flex items-center gap-2.5 text-sm font-medium text-muted" aria-hidden={i >= stack.length ? 'true' : undefined}>
-          <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d={item.icon.path} />
-          </svg>
-          {item.name}
-        </li>
-      ))
+      loop.map((item, i) => {
+        const fill = iconFor(item.name)?.color ?? 'currentColor';
+        return (
+          <li class="group flex items-center gap-2.5 text-sm font-medium text-muted transition-colors hover:text-ink" aria-hidden={i >= stack.length ? 'true' : undefined}>
+            <svg
+              class="size-5 transition-transform duration-300 group-hover:scale-125"
+              viewBox="0 0 24 24"
+              fill={fill}
+              aria-hidden="true">
+              <path d={item.icon.path} />
+            </svg>
+            {item.name}
+          </li>
+        );
+      })
     }
   </ul>
 </div>

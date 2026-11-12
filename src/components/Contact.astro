@@ -1,51 +1,158 @@
 ---
+import { Image } from 'astro:assets';
 import { content, type Lang } from '../i18n/content';
 import { links } from '../data/profile';
 import { siGithub } from 'simple-icons';
+import photo from '../assets/photo.jpg';
 
 interface Props {
   lang: Lang;
 }
 
-const t = content[Astro.props.lang].contact;
+const { lang } = Astro.props;
+const t = content[lang].contact;
+const hero = content[lang].hero;
+
+const short = (url: string) => url.replace(/^https:\/\/(www\.)?/, '');
 ---
 
-<section id="contact" class="border-t border-line bg-surface/40 py-24">
-  <div class="mx-auto max-w-2xl px-4 text-center sm:px-6" data-reveal>
-    <span class="inline-block rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">{t.tag}</span>
-    <h2 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{t.title}</h2>
-    <p class="mt-5 text-lg leading-relaxed text-muted text-pretty">{t.text}</p>
+<section id="contact" class="relative overflow-hidden border-t border-line bg-surface/40 py-24">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,var(--accent-soft),transparent_60%)]" aria-hidden="true"></div>
 
-    <a
-      href={`mailto:${links.email}`}
-      class="mt-8 inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-semibold text-bg transition-opacity hover:opacity-90">
-      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-        <path d="m3 7 9 6 9-6"></path>
-      </svg>
-      {t.email}
-    </a>
-    <p class="mt-3 font-mono text-xs text-subtle">{links.email}</p>
+  <div class="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-12 px-4 sm:px-6 md:grid-cols-2" data-reveal>
+    <div>
+      <span class="inline-block rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">{t.tag}</span>
+      <h2 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{t.title}</h2>
+      <p class="mt-5 max-w-md text-lg leading-relaxed text-muted text-pretty">{t.text}</p>
 
-    <div class="mt-8 flex justify-center gap-3">
-      <a
-        href={links.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn"
-        class="grid size-11 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent">
-        <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.12V21h-4v-4.98c0-1.19-.02-2.72-1.66-2.72-1.66 0-1.91 1.3-1.91 2.63V21h-4V9.75Z"></path>
-        </svg>
-      </a>
-      <a
-        href={links.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-        class="grid size-11 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent">
-        <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={siGithub.path}></path></svg>
-      </a>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={`mailto:${links.email}`}
+          class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-bg shadow-lg shadow-accent/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent/40">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+            <path d="m3 7 9 6 9-6"></path>
+          </svg>
+          {t.email}
+        </a>
+        <a
+          href={links.cv}
+          download
+          class="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-5 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"></path>
+          </svg>
+          {hero.cv}
+        </a>
+      </div>
+    </div>
+
+    {/* Profile card */}
+    <div class="overflow-hidden rounded-3xl border border-line bg-surface shadow-2xl shadow-black/10 transition-transform duration-500 md:rotate-1 md:hover:rotate-0">
+      <div
+        class="h-24 [background-image:radial-gradient(rgb(255_255_255/0.25)_1px,transparent_1px),linear-gradient(135deg,var(--accent),color-mix(in_oklab,var(--accent)_55%,transparent))] [background-size:14px_14px,auto]"
+        aria-hidden="true">
+      </div>
+      <div class="px-6 pb-6">
+        <div class="-mt-10 flex items-end gap-4">
+          <div class="size-24 shrink-0 overflow-hidden rounded-full border-4 border-surface bg-white">
+            <Image src={photo} alt="" widths={[96, 192]} sizes="96px" class="size-full scale-[1.04] object-cover" />
+          </div>
+          <div class="pb-1">
+            <p class="font-bold">Marcos Ruiz-Flores</p>
+            <p class="text-sm text-muted">{hero.role} · Java</p>
+          </div>
+        </div>
+
+        <ul class="mt-5 space-y-1 border-t border-line pt-4 text-sm">
+          <li class="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-surface-2">
+            <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="m3 7 9 6 9-6"></path>
+              </svg>
+            </span>
+            <a href={`mailto:${links.email}`} class="min-w-0 flex-1 truncate font-medium hover:text-accent">{links.email}</a>
+            <button
+              type="button"
+              data-copy={links.email}
+              data-copied-label={t.copied}
+              aria-label={t.copy}
+              title={t.copy}
+              class="grid size-8 shrink-0 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent">
+              <svg class="size-3.5" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+                <path d="M5 15V5a2 2 0 0 1 2-2h10"></path>
+              </svg>
+              <svg class="hidden size-3.5 text-emerald-500" data-icon="done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="m5 12 5 5L20 7"></path>
+              </svg>
+            </button>
+          </li>
+          <li>
+            <a
+              href={links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-surface-2">
+              <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+                <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.12V21h-4v-4.98c0-1.19-.02-2.72-1.66-2.72-1.66 0-1.91 1.3-1.91 2.63V21h-4V9.75Z"></path>
+                </svg>
+              </span>
+              <span class="min-w-0 flex-1 truncate font-medium group-hover:text-accent">linkedin.com/in/marcos-ruiz-flores-vicente</span>
+              <svg class="size-4 shrink-0 text-subtle transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M7 17 17 7M8 7h9v9"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href={links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-surface-2">
+              <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+                <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={siGithub.path}></path></svg>
+              </span>
+              <span class="min-w-0 flex-1 truncate font-medium group-hover:text-accent">{short(links.github)}</span>
+              <svg class="size-4 shrink-0 text-subtle transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M7 17 17 7M8 7h9v9"></path>
+              </svg>
+            </a>
+          </li>
+          <li class="flex items-center gap-3 p-2">
+            <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"></path>
+                <circle cx="12" cy="10" r="2.5"></circle>
+              </svg>
+            </span>
+            <span class="font-medium">{hero.location}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+    const label = btn.getAttribute('aria-label') ?? '';
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+      } catch {
+        return;
+      }
+      btn.querySelector('[data-icon="copy"]')?.classList.add('hidden');
+      btn.querySelector('[data-icon="done"]')?.classList.remove('hidden');
+      btn.setAttribute('aria-label', btn.dataset.copiedLabel ?? label);
+      setTimeout(() => {
+        btn.querySelector('[data-icon="copy"]')?.classList.remove('hidden');
+        btn.querySelector('[data-icon="done"]')?.classList.add('hidden');
+        btn.setAttribute('aria-label', label);
+      }, 1800);
+    });
+  });
+</script>

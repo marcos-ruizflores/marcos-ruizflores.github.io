@@ -109,10 +109,67 @@ body {
   }
 }
 
+/* Uses transform so it never fights with the hover lifts, which use translate */
 @keyframes reveal {
   from {
     opacity: 0;
-    translate: 0 28px;
+    transform: translateY(28px);
+  }
+}
+
+/* Blinking terminal caret in the hero */
+.caret {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Small badge on the photo gently bobbing */
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+/*
+  Project screenshots sit slightly turned in 3D and straighten up on hover.
+  Every other project leans the opposite way.
+*/
+.tilt {
+  perspective: 1400px;
+}
+
+.tilt-main,
+.tilt-detail {
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .tilt-main {
+    transform: rotateY(9deg) rotateX(3deg);
+  }
+  .tilt-detail {
+    transform: rotateY(9deg) rotateX(3deg) translateZ(40px);
+  }
+  .tilt-flip .tilt-main {
+    transform: rotateY(-9deg) rotateX(3deg);
+  }
+  .tilt-flip .tilt-detail {
+    transform: rotateY(-9deg) rotateX(3deg) translateZ(40px);
+  }
+  .tilt:hover .tilt-main {
+    transform: none;
+  }
+  .tilt:hover .tilt-detail {
+    transform: translateZ(0) translateY(-6px);
   }
 }
 
@@ -121,7 +178,13 @@ body {
     scroll-behavior: auto;
   }
   .marquee-track,
-  .pulse-dot {
+  .pulse-dot,
+  .caret,
+  .float {
     animation: none;
+  }
+  .tilt-main,
+  .tilt-detail {
+    transition: none;
   }
 }

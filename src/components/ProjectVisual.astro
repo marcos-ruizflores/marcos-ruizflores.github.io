@@ -6,45 +6,36 @@ import toriiSearch from '../assets/projects/torii-search.png';
 import toriiHistory from '../assets/projects/torii-history.png';
 import criptoPanel from '../assets/projects/cripto-panel.png';
 import criptoAllocation from '../assets/projects/cripto-allocation.png';
+import tfgCover from '../assets/projects/tfg-cover.png';
+import tfgGrover from '../assets/projects/tfg-grover.png';
 
 interface Props {
   project: Project;
+  flip?: boolean;
 }
 
-const { project } = Astro.props;
+const { project, flip = false } = Astro.props;
 
-const shots: Partial<Record<Project['visual'], [ImageMetadata, ImageMetadata]>> = {
+const shots: Record<Project['visual'], [ImageMetadata, ImageMetadata]> = {
   torii: [toriiSearch, toriiHistory],
   cripto: [criptoPanel, criptoAllocation],
+  thesis: [tfgCover, tfgGrover],
 };
 
-const pair = shots[project.visual];
+const [main, detail] = shots[project.visual];
 const [mainAlt, detailAlt] = project.alt ?? ['', ''];
 ---
 
-{
-  pair ? (
-    <div class="relative pb-[16%]">
-      <figure class="overflow-hidden rounded-xl border border-line bg-surface shadow-xl shadow-black/10 sm:w-[90%]">
-        <div class="flex gap-1.5 border-b border-line px-3 py-2.5" aria-hidden="true">
-          <span class="size-2 rounded-full bg-line" />
-          <span class="size-2 rounded-full bg-line" />
-          <span class="size-2 rounded-full bg-line" />
-        </div>
-        <Image src={pair[0]} alt={mainAlt} widths={[560, 900, 1200]} sizes="(min-width: 768px) 500px, 100vw" class="block h-auto w-full" />
-      </figure>
-      <figure class="absolute bottom-0 right-0 w-[55%] overflow-hidden rounded-lg border border-line shadow-2xl shadow-black/30">
-        <Image src={pair[1]} alt={detailAlt} widths={[400, 800]} sizes="(min-width: 768px) 300px, 55vw" class="block h-auto w-full" />
-      </figure>
+<div class:list={['tilt relative pb-[16%]', flip && 'tilt-flip']}>
+  <figure class="tilt-main overflow-hidden rounded-xl border border-line bg-surface shadow-xl shadow-black/10 sm:w-[90%]">
+    <div class="flex gap-1.5 border-b border-line px-3 py-2.5" aria-hidden="true">
+      <span class="size-2 rounded-full bg-line"></span>
+      <span class="size-2 rounded-full bg-line"></span>
+      <span class="size-2 rounded-full bg-line"></span>
     </div>
-  ) : (
-    <dl class="grid gap-px overflow-hidden rounded-2xl border border-line bg-line">
-      {project.stats?.map((s) => (
-        <div class="flex items-baseline gap-5 bg-surface px-6 py-5">
-          <dt class="w-28 shrink-0 font-mono text-2xl font-bold tracking-tight text-accent sm:w-32 sm:text-3xl">{s.value}</dt>
-          <dd class="text-sm leading-snug text-muted">{s.label}</dd>
-        </div>
-      ))}
-    </dl>
-  )
-}
+    <Image src={main} alt={mainAlt} widths={[560, 900, 1200]} sizes="(min-width: 768px) 500px, 100vw" class="block h-auto w-full" />
+  </figure>
+  <figure class="tilt-detail absolute bottom-0 right-0 w-[55%] overflow-hidden rounded-lg border border-line shadow-2xl shadow-black/30">
+    <Image src={detail} alt={detailAlt} widths={[400, 800]} sizes="(min-width: 768px) 300px, 55vw" class="block h-auto w-full" />
+  </figure>
+</div>

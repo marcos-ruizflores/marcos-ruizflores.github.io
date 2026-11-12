@@ -2,6 +2,7 @@
 import { content, type Lang } from '../i18n/content';
 import SectionHeading from './SectionHeading.astro';
 import ProjectVisual from './ProjectVisual.astro';
+import TechChip from './TechChip.astro';
 
 interface Props {
   lang: Lang;
@@ -18,7 +19,7 @@ const t = content[Astro.props.lang].projects;
       t.items.map((p, i) => (
         <article class="grid items-center gap-10 md:grid-cols-2" data-reveal>
           <div class:list={[i % 2 === 1 && 'md:order-2']}>
-            <ProjectVisual project={p} />
+            <ProjectVisual project={p} flip={i % 2 === 1} />
           </div>
           <div>
             <p class="font-mono text-xs text-accent">{p.label}</p>
@@ -26,7 +27,7 @@ const t = content[Astro.props.lang].projects;
             <p class="mt-4 leading-relaxed text-muted text-pretty">{p.description}</p>
             <ul class="mt-5 flex flex-wrap gap-2">
               {p.tech.map((tech) => (
-                <li class="rounded-md border border-line bg-surface px-2.5 py-1 font-mono text-[11px] text-muted">{tech}</li>
+                <TechChip name={tech} />
               ))}
             </ul>
             {p.links.length > 0 && (

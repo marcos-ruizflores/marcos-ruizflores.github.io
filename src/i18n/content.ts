@@ -9,8 +9,6 @@ export interface Project {
   visual: 'torii' | 'cripto' | 'thesis';
   // Alt text for the two screenshots: the main one and the smaller detail on top
   alt?: [string, string];
-  // Headline numbers, used instead of screenshots for the thesis
-  stats?: { value: string; label: string }[];
 }
 
 export interface Job {
@@ -55,6 +53,8 @@ const en = {
     primary: 'See my work',
     cv: 'Download CV',
     photoAlt: 'Photo of Marcos Ruiz-Flores',
+    typed: ['Java and Spring Boot in production', 'Event-driven services with Kafka', 'APIs other teams enjoy using', 'Owning services end to end'],
+    stat: { value: '1 year', label: 'of backend at Allianz' },
     location: 'Barcelona, Spain',
   },
   about: {
@@ -147,10 +147,9 @@ const en = {
         tech: ['Python', 'Qiskit', 'IBM Quantum', 'Cryptography'],
         links: [],
         visual: 'thesis',
-        stats: [
-          { value: '40.5%', label: 'Grover success rate on real IBM hardware, against 6.25% by pure chance' },
-          { value: '24%', label: 'Shor (factoring 15) once real noise kicks in, down from 76% in an ideal simulator' },
-          { value: '~3,000×', label: 'faster key generation with ML-KEM than with RSA-2048, for keys about 4× larger' },
+        alt: [
+          'Title slide of my thesis: Impact of quantum computing on cybersecurity',
+          'Thesis slide: Grover success rate in an ideal simulator, a noisy simulator and real IBM hardware',
         ],
       },
     ] satisfies Project[],
@@ -159,12 +158,12 @@ const en = {
     tag: 'Skills',
     title: 'What I work with',
     groups: [
-      { name: 'Backend', items: ['Java 17/21', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'REST APIs', 'Microservices'] },
-      { name: 'Data and messaging', items: ['PostgreSQL', 'Oracle', 'MySQL', 'MongoDB', 'Redis', 'Flyway', 'Kafka', 'ActiveMQ', 'Apache Camel'] },
-      { name: 'Cloud and delivery', items: ['Docker', 'Kubernetes', 'AWS', 'Jenkins', 'GitHub Actions', 'Git', 'Linux'] },
-      { name: 'Quality', items: ['JUnit', 'Mockito', 'Integration tests', 'Clean Code', 'SOLID', 'Code reviews'] },
-      { name: 'Frontend', items: ['React', 'TypeScript', 'Vue.js', 'Tailwind', 'HTML', 'CSS'] },
-      { name: 'Other', items: ['Python', 'C', 'Claude Code', 'Agile / Scrum'] },
+      { code: 'SRV', name: 'Backend', items: ['Java 17/21', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'REST APIs', 'Microservices'] },
+      { code: 'DB', name: 'Data and messaging', items: ['PostgreSQL', 'Oracle', 'MySQL', 'MongoDB', 'Redis', 'Flyway', 'Kafka', 'ActiveMQ', 'Apache Camel'] },
+      { code: 'OPS', name: 'Cloud and delivery', items: ['Docker', 'Kubernetes', 'AWS', 'Jenkins', 'GitHub Actions', 'Git', 'Linux'] },
+      { code: 'QA', name: 'Quality', items: ['JUnit', 'Mockito', 'Integration tests', 'Clean Code', 'SOLID', 'Code reviews'] },
+      { code: 'UI', name: 'Frontend', items: ['React', 'TypeScript', 'Vue.js', 'Tailwind', 'HTML', 'CSS'] },
+      { code: 'ETC', name: 'Other', items: ['Python', 'C', 'Claude Code', 'Agile / Scrum'] },
     ],
   },
   education: {
@@ -174,12 +173,15 @@ const en = {
     school: 'La Salle Campus Barcelona',
     period: '2020 – 2026',
     thesis: 'Thesis: Impact of Quantum Computing on Cybersecurity.',
+    status: 'Completed',
   },
   contact: {
     tag: 'Contact',
     title: "Let's talk",
     text: 'I’m open to new backend roles. The quickest way to reach me is by email, but LinkedIn works too.',
     email: 'Send an email',
+    copy: 'Copy email',
+    copied: 'Copied',
   },
   footer: { built: 'Built with Astro', rights: 'Marcos Ruiz-Flores' },
 };
@@ -212,6 +214,8 @@ const es: Content = {
     primary: 'Ver proyectos',
     cv: 'Descargar CV',
     photoAlt: 'Foto de Marcos Ruiz-Flores',
+    typed: ['Java y Spring Boot en producción', 'Servicios por eventos con Kafka', 'APIs fáciles de usar', 'Servicios de principio a fin'],
+    stat: { value: '1 año', label: 'de backend en Allianz' },
     location: 'Barcelona, España',
   },
   about: {
@@ -304,10 +308,9 @@ const es: Content = {
         tech: ['Python', 'Qiskit', 'IBM Quantum', 'Criptografía'],
         links: [],
         visual: 'thesis',
-        stats: [
-          { value: '40,5 %', label: 'de acierto de Grover en hardware real de IBM, frente al 6,25 % por puro azar' },
-          { value: '24 %', label: 'de acierto de Shor (factorizar 15) con ruido real, frente al 76 % en un simulador ideal' },
-          { value: '~3.000×', label: 'más rápido generar claves con ML-KEM que con RSA-2048, a cambio de claves unas 4 veces mayores' },
+        alt: [
+          'Portada de mi TFG: Impacto de la computación cuántica en la ciberseguridad',
+          'Diapositiva del TFG: acierto de Grover en simulador ideal, simulador con ruido y hardware real de IBM',
         ],
       },
     ],
@@ -316,12 +319,12 @@ const es: Content = {
     tag: 'Habilidades',
     title: 'Con qué trabajo',
     groups: [
-      { name: 'Backend', items: ['Java 17/21', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'APIs REST', 'Microservicios'] },
-      { name: 'Datos y mensajería', items: ['PostgreSQL', 'Oracle', 'MySQL', 'MongoDB', 'Redis', 'Flyway', 'Kafka', 'ActiveMQ', 'Apache Camel'] },
-      { name: 'Cloud y despliegue', items: ['Docker', 'Kubernetes', 'AWS', 'Jenkins', 'GitHub Actions', 'Git', 'Linux'] },
-      { name: 'Calidad', items: ['JUnit', 'Mockito', 'Tests de integración', 'Clean Code', 'SOLID', 'Code reviews'] },
-      { name: 'Frontend', items: ['React', 'TypeScript', 'Vue.js', 'Tailwind', 'HTML', 'CSS'] },
-      { name: 'Otros', items: ['Python', 'C', 'Claude Code', 'Agile / Scrum'] },
+      { code: 'SRV', name: 'Backend', items: ['Java 17/21', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'APIs REST', 'Microservicios'] },
+      { code: 'DB', name: 'Datos y mensajería', items: ['PostgreSQL', 'Oracle', 'MySQL', 'MongoDB', 'Redis', 'Flyway', 'Kafka', 'ActiveMQ', 'Apache Camel'] },
+      { code: 'OPS', name: 'Cloud y despliegue', items: ['Docker', 'Kubernetes', 'AWS', 'Jenkins', 'GitHub Actions', 'Git', 'Linux'] },
+      { code: 'QA', name: 'Calidad', items: ['JUnit', 'Mockito', 'Tests de integración', 'Clean Code', 'SOLID', 'Code reviews'] },
+      { code: 'UI', name: 'Frontend', items: ['React', 'TypeScript', 'Vue.js', 'Tailwind', 'HTML', 'CSS'] },
+      { code: 'ETC', name: 'Otros', items: ['Python', 'C', 'Claude Code', 'Agile / Scrum'] },
     ],
   },
   education: {
@@ -331,12 +334,15 @@ const es: Content = {
     school: 'La Salle Campus Barcelona',
     period: '2020 – 2026',
     thesis: 'TFG: Impacto de la computación cuántica en la ciberseguridad.',
+    status: 'Completado',
   },
   contact: {
     tag: 'Contacto',
     title: 'Hablemos',
     text: 'Estoy abierto a nuevas oportunidades como desarrollador backend. Lo más rápido es escribirme un email, pero también me encuentras en LinkedIn.',
     email: 'Enviar un email',
+    copy: 'Copiar email',
+    copied: 'Copiado',
   },
   footer: { built: 'Hecha con Astro', rights: 'Marcos Ruiz-Flores' },
 };
