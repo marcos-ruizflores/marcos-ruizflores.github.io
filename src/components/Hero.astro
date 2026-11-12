@@ -12,7 +12,7 @@ const t = content[Astro.props.lang].hero;
 ---
 
 <section class="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-12 px-4 pb-20 pt-14 sm:px-6 md:grid-cols-[minmax(0,1fr)_auto] md:pt-24">
-  <div>
+  <div class="enter">
     <span class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
       <span class="pulse-dot size-2 rounded-full bg-emerald-500"></span>
       {t.badge}
@@ -47,7 +47,7 @@ const t = content[Astro.props.lang].hero;
     </div>
   </div>
 
-  <div class="relative mx-auto size-56 sm:size-72">
+  <div class="enter relative mx-auto size-56 sm:size-72" style="--delay: 150ms">
     <div class="absolute -inset-3 rounded-full bg-[radial-gradient(circle,var(--accent-soft),transparent_70%)]" aria-hidden="true"></div>
     {/* The source photo is already cut into a circle on grey, so scale it a touch to hide the corners */}
     <div class="relative size-full overflow-hidden rounded-full border border-line">

@@ -16,7 +16,7 @@ const t = content[Astro.props.lang].projects;
   <div class="space-y-24">
     {
       t.items.map((p, i) => (
-        <article class="grid items-center gap-10 md:grid-cols-2">
+        <article class="grid items-center gap-10 md:grid-cols-2" data-reveal>
           <div class:list={[i % 2 === 1 && 'md:order-2']}>
             <ProjectVisual project={p} />
           </div>

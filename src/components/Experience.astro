@@ -13,7 +13,7 @@ const t = content[Astro.props.lang].experience;
   <div class="mx-auto max-w-5xl px-4 sm:px-6">
     <SectionHeading tag={t.tag} title={t.title} />
 
-    <div class="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[220px_minmax(0,1fr)]" data-tabs>
+    <div class="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[220px_minmax(0,1fr)]" data-tabs data-reveal>
       <div role="tablist" aria-orientation="vertical" class="flex min-w-0 gap-2 overflow-x-auto md:flex-col">
         {
           t.jobs.map((job, i) => (

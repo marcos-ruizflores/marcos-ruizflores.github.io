@@ -16,7 +16,7 @@ const t = content[Astro.props.lang].skills;
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         t.groups.map((group) => (
-          <div class="rounded-2xl border border-line bg-surface p-6">
+          <div class="rounded-2xl border border-line bg-surface p-6" data-reveal>
             <h3 class="font-mono text-xs uppercase tracking-wider text-accent">{group.name}</h3>
             <ul class="mt-4 flex flex-wrap gap-2">
               {group.items.map((item) => (

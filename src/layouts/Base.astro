@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { content, type Lang } from '../i18n/content';
+import { links } from '../data/profile';
 
 interface Props {
   lang: Lang;
@@ -10,6 +11,22 @@ const { lang } = Astro.props;
 const t = content[lang];
 const site = Astro.site ?? new URL('https://marcos-ruizflores.github.io');
 const canonical = new URL(lang === 'en' ? '/' : '/es/', site).href;
+const ogImage = new URL('/og.png', site).href;
+
+// Structured data so search engines know this page is about a person
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Marcos Ruiz-Flores Vicente',
+  jobTitle: 'Backend Software Engineer',
+  url: site.href,
+  image: ogImage,
+  worksFor: { '@type': 'Organization', name: 'Allianz Technology' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'La Salle Campus Barcelona (Universitat Ramon Llull)' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
+  knowsAbout: ['Java', 'Spring Boot', 'Microservices', 'Apache Kafka', 'PostgreSQL'],
+  sameAs: [links.linkedin, links.github],
+};
 ---
 
 <!doctype html>
@@ -29,7 +46,21 @@ const canonical = new URL(lang === 'en' ? '/' : '/es/', site).href;
     <meta property="og:description" content={t.meta.description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_ES'} />
-    <meta name="theme-color" content="#0c0c11" />
+    <meta property="og:locale:alternate" content={lang === 'en' ? 'es_ES' : 'en_US'} />
+    <meta property="og:site_name" content="Marcos Ruiz-Flores" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t.meta.title} />
+    <meta name="twitter:description" content={t.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="author" content="Marcos Ruiz-Flores Vicente" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f8fa" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c0c11" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
     <script is:inline>
       // Runs before paint so the page never flashes the wrong theme
       (function () {

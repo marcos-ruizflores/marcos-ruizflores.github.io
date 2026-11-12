@@ -74,8 +74,42 @@ const sections = ['about', 'experience', 'projects', 'skills', 'education', 'con
         </svg>
         CV
       </a>
+
+      <button
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={t.menu}
+        class="group grid size-9 place-items-center rounded-lg border border-line text-muted transition-colors hover:text-ink lg:hidden">
+        <svg class="size-4 group-aria-expanded:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg class="hidden size-4 group-aria-expanded:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
     </div>
   </div>
+
+  <nav id="mobile-menu" aria-label="Main" hidden class="border-t border-line bg-bg/95 lg:hidden" data-menu>
+    <ul class="mx-auto flex max-w-6xl flex-col px-4 py-3 sm:px-6">
+      {
+        sections.map((id) => (
+          <li>
+            <a href={`#${id}`} class="block rounded-lg px-3 py-3 text-base text-muted transition-colors hover:bg-surface hover:text-ink">
+              {t.nav[id]}
+            </a>
+          </li>
+        ))
+      }
+      <li class="mt-2 border-t border-line pt-3 sm:hidden">
+        <a href={links.cv} download class="flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-bg">
+          {t.hero.cv}
+        </a>
+      </li>
+    </ul>
+  </nav>
 </header>
 
 <script>
@@ -97,6 +131,26 @@ const sections = ['about', 'experience', 'projects', 'skills', 'education', 'con
     } catch {}
     syncLabel();
   });
+
+  // Mobile menu: closes on link tap, Escape, or when the screen gets wide enough for the full nav
+  const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+
+  const setMenu = (open: boolean) => {
+    if (!menuToggle || !menu) return;
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+  };
+
+  menuToggle?.addEventListener('click', () => setMenu(Boolean(menu?.hidden)));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) {
+      setMenu(false);
+      menuToggle?.focus();
+    }
+  });
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => e.matches && setMenu(false));
 
   // Border under the header once the page scrolls
   const header = document.querySelector<HTMLElement>('[data-header]');

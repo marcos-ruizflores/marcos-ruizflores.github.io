@@ -12,7 +12,7 @@ const t = content[Astro.props.lang].about;
 <section id="about" class="mx-auto max-w-6xl px-4 py-24 sm:px-6">
   <SectionHeading tag={t.tag} title={t.title} />
 
-  <div class="grid gap-14 md:grid-cols-[1.2fr_1fr]">
+  <div class="grid gap-14 md:grid-cols-[1.2fr_1fr]" data-reveal>
     <div>
       <p class="text-xl font-semibold leading-snug text-pretty">{t.lead}</p>
       <p class="mt-5 leading-relaxed text-muted text-pretty">{t.body}</p>
