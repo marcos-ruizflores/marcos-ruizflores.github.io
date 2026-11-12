@@ -135,8 +135,8 @@ const en = {
         links: [{ label: 'Source', href: 'https://github.com/marcos-ruizflores/criptoBalance' }],
         visual: 'cripto',
         alt: [
-          'CriptoBalance dashboard with a new trade form and profit and loss per coin',
-          'CriptoBalance portfolio allocation chart',
+          'CriptoBalance overview with portfolio value, positions with profit and loss per coin, and allocation',
+          'CriptoBalance three-month Bitcoin price chart with a hover tooltip',
         ],
       },
       {
@@ -296,8 +296,8 @@ const es: Content = {
         links: [{ label: 'Código', href: 'https://github.com/marcos-ruizflores/criptoBalance' }],
         visual: 'cripto',
         alt: [
-          'Panel de CriptoBalance con el formulario de nueva operación y las ganancias y pérdidas de cada moneda',
-          'Gráfico de distribución de la cartera en CriptoBalance',
+          'Resumen de CriptoBalance con el valor de la cartera, las posiciones con la ganancia de cada moneda y la distribución',
+          'Gráfico del precio de Bitcoin en los últimos tres meses en CriptoBalance',
         ],
       },
       {
