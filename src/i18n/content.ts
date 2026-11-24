@@ -6,7 +6,7 @@ export interface Project {
   description: string;
   tech: string[];
   links: { label: string; href: string }[];
-  visual: 'torii' | 'cripto' | 'thesis';
+  visual: 'torii' | 'fastcontract' | 'cripto' | 'thesis';
   // Alt text for the two screenshots: the main one and the smaller detail on top
   alt?: [string, string];
 }
@@ -124,6 +124,19 @@ const en = {
         alt: [
           'Torii search form and departures board for Barcelona to Tokyo, with price verdicts',
           'Torii route map and 30-day price history chart',
+        ],
+      },
+      {
+        label: 'Startup · In development',
+        title: 'FastContract · milestone agreements for freelancers',
+        description:
+          'My own startup: a freelancer splits the work into milestones and the client signs from a link with a code sent to their email. Each delivery, review and payment is tracked, and a review the client ignores is approved when the agreed period ends. Every event goes into a hash chain whose Merkle roots are anchored on a public blockchain by a Solidity contract, so anyone can verify the signed PDF. Built as a modular monolith with Spring Modulith and more than 90 integration tests.',
+        tech: ['Java 21', 'Spring Boot', 'Spring Modulith', 'PostgreSQL', 'React', 'TypeScript', 'Solidity', 'Docker'],
+        links: [],
+        visual: 'fastcontract',
+        alt: [
+          'FastContract agreement page: two signatures, milestone progress with one milestone paid and another under review',
+          'Client view of a delivered milestone with the buttons to ask for changes or approve it',
         ],
       },
       {
@@ -288,6 +301,19 @@ const es: Content = {
         alt: [
           'Formulario de búsqueda de Torii y panel de salidas de Barcelona a Tokio, con el veredicto de precio',
           'Mapa de la ruta y gráfico del histórico de precios de 30 días en Torii',
+        ],
+      },
+      {
+        label: 'Startup · En desarrollo',
+        title: 'FastContract · acuerdos por hitos para freelancers',
+        description:
+          'Mi propia startup: el freelancer divide el trabajo en hitos y el cliente firma desde un enlace con un código que le llega al email. Cada entrega, revisión y pago queda registrado, y si el cliente no revisa una entrega, se aprueba sola al acabar el plazo pactado. Todos los eventos forman una cadena de hashes cuyas raíces Merkle se anclan en una blockchain pública con un contrato en Solidity, así que cualquiera puede verificar el PDF firmado. Es un monolito modular con Spring Modulith y más de 90 tests de integración.',
+        tech: ['Java 21', 'Spring Boot', 'Spring Modulith', 'PostgreSQL', 'React', 'TypeScript', 'Solidity', 'Docker'],
+        links: [],
+        visual: 'fastcontract',
+        alt: [
+          'Página de un acuerdo en FastContract: las dos firmas y el progreso de los hitos, con uno cobrado y otro en revisión',
+          'Vista del cliente de un hito entregado, con los botones para pedir cambios o aprobarlo',
         ],
       },
       {
